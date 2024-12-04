@@ -239,7 +239,7 @@ disp(['J2: ' num2str(fitStr.x(2))])
 disp(['sigJ2: ' num2str(sigJ2)])
 
 % J3
-delJ3 = -0.0015:0.0001:0.0015;
+delJ3 = -0.0008:0.00005:0.0008;
 J3chi2 = zeros(size(delJ3));
 J3Iter = zeros(size(delJ3));
 for i=1:length(delJ3)
@@ -313,7 +313,7 @@ disp(['J3: ' num2str(fitStr.x(3))])
 disp(['sigJ3: ' num2str(sigJ3)])
 
 % Dc
-delDc = -0.003:0.0002:0.003;
+delDc = -0.0015:0.0001:0.0015;
 Dcchi2 = zeros(size(delDc));
 DcIter = zeros(size(delDc));
 for i=1:length(delDc)
@@ -464,7 +464,7 @@ MnF2Splitting.genmagstr('mode', 'direct', 'k', [0 0 0], 'S', [0 0; 0 0; -4.6 4.6
 % MnF2Splitting.getmatrix('bond', 2);
 
 spec = MnF2Splitting.spinwave({[-0.5,0.5,1] [0,0,1] [0.5,0.5,1] 223}, 'formfact', true, 'hermit', true);
-spec = sw_neutron(spec, 'pol', true, 'n', [0 0 1]);
+spec = sw_neutron(spec, 'pol', true, 'uv', {[-0.5 0.5 1] [0.5 0.5 1]});
 spec = sw_egrid(spec, 'Evect', linspace(0, 10, 1000), 'component', 'Pxy+Pxz', 'T', 0, 'ImagChk', true);
 
 f = figure('Position', [2, 3.3, 15, 13.24], 'Units', 'centimeters');
@@ -949,7 +949,7 @@ plot3([0, 0.5], [1, 1.5], [1e3, 1e3], '--w', 'LineWidth', 1)
 plot3([1, 1.5], [0, 0.5], [1e3, 1e3], '--w', 'LineWidth', 1)
 text(0.01, 1.1, '\Gamma', 'Color', 'w', 'FontSize', 16);
 text(0.51, 1.07, 'X', 'Color', 'w', 'FontSize', 16);
-text(0.31, 0.56, 'M', 'Color', 'w', 'FontSize', 16);
+text(0.4, 0.45, 'M', 'Color', 'k', 'FontSize', 16);
 text(1.01, 0.1, '\Gamma', 'Color', 'w', 'FontSize', 16);
 text(1.01, 0.57, 'X', 'Color', 'w', 'FontSize', 16);
 text(1.01, 1.1, '\Gamma', 'Color', 'w', 'FontSize', 16);
@@ -1437,7 +1437,7 @@ MnF2Fit.addcoupling('mat', 'J3', 'bond', 3);
 MnF2Fit.coupling.rdip = intDist; % Dipole-dipole interaction
 MnF2Fit.genmagstr('mode', 'direct', 'k', [0 0 0], 'S', [0 0; 0 0; -4.6 4.6]);
 
-%% Global Fit 2: Read in the data
+%% Global Fit: Read in the data
 
 % Plot over the experimental data after loading the data.
 T = sw_readtable('U:\Data\MATLAB\MnF2\1p5K_0T_FitDisp.txt');
@@ -1452,17 +1452,17 @@ inten = [T(:).I1];
 % Indices corresponding to each slice
 % HHL
 ind1 = 1:5;
-ind2 = 6:25;
-ind3 = 26:39;
-ind4 = 40:55;
-ind5 = 56:66;
+ind2 = 6:26;
+ind3 = 27:40;
+ind4 = 41:56;
+ind5 = 57:67;
 % H0L
-ind6 = 67:83;
-ind7 = 84:100;
-ind8 = 101:111;
-ind9 = 112:121;
+ind6 = 68:84;
+ind7 = 85:101;
+ind8 = 102:112;
+ind9 = 113:122;
 % HK0
-ind10 = 122:141;
+ind10 = 123:142;
 
 save('U:\Data\MATLAB\MnF2\HamiltonianFitDip.mat')
 
